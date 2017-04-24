@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Elmah.Io.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -24,8 +25,10 @@ namespace ElmahIoExperiment
         {
             loggerFactory.AddConsole();
 
-            app.UseMiddleware<HandleExceptionMiddleware>();
+            app.UseElmahIo("API_KEY", new Guid("LOG_ID"));
 
+            app.UseMiddleware<HandleExceptionMiddleware>();
+            
             app.UseMvcWithDefaultRoute();
         }
     }
